@@ -13,14 +13,14 @@ export async function POST(req)
     if (!user)
         return Response.json(
             { message: "User Not Found!", success: false },
-            { status: 404 }
+            { status: 401 }
         );
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch)
         return Response.json(
             { message: "Invalid Password", success: false },
-            { status: 404 }
+            { status: 401}
         );
 
     const token = jwt.sign(
