@@ -6,7 +6,6 @@ export function middleware(req)
     const token = req.cookies.get('token')?.value;
     const url = req.nextUrl.clone();
 
-    // If no token, redirect to login
     if (!token)
     {
         if (url.pathname.startsWith("/admin") || url.pathname.startsWith("/user"))
@@ -20,7 +19,7 @@ export function middleware(req)
     {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-        // Role-based access control
+    
         if (req.nextUrl.pathname.startsWith('/admin') && decoded.role !== 'admin')
         {
             return NextResponse.redirect(new URL('/unauthorized', req.url));
