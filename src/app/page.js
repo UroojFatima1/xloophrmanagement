@@ -3,64 +3,75 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-export default function AuthPage() {
+export default function AuthPage()
+{
   const router = useRouter();
   const [mode, setMode] = useState('login');
   const [formData, setFormData] = useState({ name: '', email: '', password: '' });
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const resetForm = () => {
+  const resetForm = () =>
+  {
     setFormData({ name: '', email: '', password: '' });
   };
 
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const handleSubmit = async e => {
-  e.preventDefault();
-  setLoading(true);
-  setMessage('');
-  const endpoint = mode === 'login' ? '/api/login' : '/api/register';
+  const handleSubmit = async e =>
+  {
+    e.preventDefault();
+    setLoading(true);
+    setMessage('');
+    const endpoint = mode === 'login' ? '/api/login' : '/api/register';
 
-  try {
-    const res = await fetch(endpoint, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData),
-    });
+    try
+    {
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
 
-    const data = await res.json();
+      const data = await res.json();
 
-    if (!res.ok || data.error) {
-      setMessage(data.message || data.error || 'Login failed.');
-    } else {
-      setMessage(mode === 'login' ? 'Login successful! Redirecting to dashboard' : 'Registration successful!');
-      resetForm();
+      if (!res.ok || data.error)
+      {
+        setMessage(data.message || data.error || 'Login failed.');
+      } else
+      {
+        setMessage(mode === 'login' ? 'Login successful! Redirecting to dashboard' : 'Registration successful!');
+        resetForm();
 
-      
-      setTimeout(() => {
-        if (data.role === 'admin') {
-          router.push('/admin');
-        } else if (data.role === 'user') {
-          router.push('/user');
-        }
-      }, 1200); 
+
+        setTimeout(() =>
+        {
+          if (data.role === 'admin')
+          {
+            router.push('/admin/admindashboard');
+          } else if (data.role === 'user')
+          {
+            router.push('/user/employeedashboard');
+          }
+        }, 1200);
+      }
+    } catch (error)
+    {
+      console.error(error);
+      setMessage('Something went wrong. Please try again.');
+    } finally
+    {
+      setLoading(false);
     }
-  } catch (error) {
-    console.error(error);
-    setMessage('Something went wrong. Please try again.');
-  } finally {
-    setLoading(false);
-  }
-};
+  };
 
 
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-sky-100 to-blue-200 flex items-center justify-center px-4">
       <div className="w-full max-w-4xl bg-white shadow-2xl rounded-3xl overflow-hidden grid md:grid-cols-2">
-      
+
         <div className="bg-gradient-to-br from-blue-700 to-blue-500 text-white flex flex-col justify-center items-center p-10">
           <h2 className="text-3xl font-extrabold mb-2 tracking-wide">
             {mode === 'login' ? 'Welcome Back!' : 'Hello, Friend!'}
@@ -71,7 +82,8 @@ export default function AuthPage() {
               : 'Create your account to get started with our services.'}
           </p>
           <button
-            onClick={() => {
+            onClick={() =>
+            {
               setMode(mode === 'login' ? 'signup' : 'login');
               resetForm();
               setMessage('');
@@ -120,25 +132,23 @@ export default function AuthPage() {
             <button
               type="submit"
               disabled={loading}
-              className={`w-full py-2 rounded-md transition font-semibold ${
-                loading
-                  ? 'bg-gray-400 cursor-not-allowed'
-                  : 'bg-blue-600 hover:bg-blue-700 text-white'
-              }`}
+              className={`w-full py-2 rounded-md transition font-semibold ${loading
+                ? 'bg-gray-400 cursor-not-allowed'
+                : 'bg-blue-600 hover:bg-blue-700 text-white'
+                }`}
             >
               {loading ? 'Please wait...' : mode === 'login' ? 'Login' : 'Sign Up'}
             </button>
           </form>
 
-         {message && (
-          <p
-            className={`mt-4 text-sm text-center ${
-              message.toLowerCase().includes('successful') ? 'text-green-600' : 'text-red-500'
-            }`}
-          >
-            {message}
-          </p>
-        )}
+          {message && (
+            <p
+              className={`mt-4 text-sm text-center ${message.toLowerCase().includes('successful') ? 'text-green-600' : 'text-red-500'
+                }`}
+            >
+              {message}
+            </p>
+          )}
 
         </div>
       </div>
