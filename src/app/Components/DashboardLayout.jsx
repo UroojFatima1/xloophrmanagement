@@ -10,8 +10,8 @@ export default function DashboardLayout({ role, children })
 
     const handleLogout = async () =>
     {
-        await fetch("/app/api/logout");
-        router.push("/");
+        await fetch('/api/logout', { method: 'POST' });
+        router.push('/');
     };
     const [isOpen, setIsOpen] = useState(false);
 
@@ -44,7 +44,7 @@ export default function DashboardLayout({ role, children })
                 className={`bg-blue-700 text-white p-6 space-y-6 w-full md:w-64 ${isOpen ? "block" : "hidden"
                     } md:block`}
             >
-                <h2 className="text-2xl font-bold hidden md:block">{role.toUpperCase()} Panel</h2>
+                <h2 className="text-2xl font-bold hidden md:block">{role.toUpperCase()} PANEL</h2>
                 <nav className="space-y-2">
                     {links.map((link) => (
                         <Link
@@ -57,9 +57,10 @@ export default function DashboardLayout({ role, children })
                         </Link>
                     ))}
                     <Link
+                        onClick={handleLogout}
                         href="/"
                         className="block hover:bg-blue-600 p-2 rounded"
-                        onClick={handleLogout}
+
                     >
                         Logout
                     </Link>

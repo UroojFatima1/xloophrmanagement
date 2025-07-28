@@ -1,4 +1,4 @@
-import { FaUserTie, FaUsers, FaMoneyBill } from "react-icons/fa";
+
 
 function Card({ icon, label, value, color })
 {
