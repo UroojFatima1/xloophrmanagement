@@ -1,5 +1,5 @@
-import DashboardLayout from "../../../Components/DashboardLayout";
-import DashboardCards from "../../../Components/DashboardCards";
+import DashboardLayout from "@/app/Components/DashboardLayout";
+import DashboardCards from "@/app/Components/DashboardCards";
 import { FaUserTie, FaUsers, FaMoneyBill } from "react-icons/fa";
 
 const employeeCards = [

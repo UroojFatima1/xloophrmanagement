@@ -9,3 +9,4 @@ const attendanceSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 export default mongoose.models.Attendance || mongoose.model("Attendance", attendanceSchema);
+

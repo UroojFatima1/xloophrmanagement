@@ -52,7 +52,7 @@ export default function AuthPage()
             router.push('/admin/admindashboard');
           } else if (data.role === 'user')
           {
-            router.push('/user/employeedashboard');
+            router.push('/user/employee/employeedashboard');
           }
         }, 1200);
       }

@@ -18,14 +18,14 @@ export default function DashboardLayout({ role, children })
     const links =
         role === "admin"
             ? [
-                { href: "/admin/dashboard", label: "Dashboard" },
-                { href: "/admin/employee", label: "Manage Employees" },
+                { href: "/admin/admindashboard", label: "Dashboard" },
+                { href: "/admin/manageemployee", label: "Manage Employees" },
                 { href: "/admin/attendance", label: "Attendance" },
                 { href: "/admin/payroll", label: "Payroll" },
             ]
             : [
-                { href: "/user/dashboard", label: "Dashboard" },
-                { href: "/user/attendance", label: "Mark Attendance" },
+                { href: "/user/employee/employeedashboard", label: "Dashboard" },
+                { href: "/user/employee/attendance", label: "Mark Attendance" },
                 { href: "/user/history", label: "Attendance History" },
                 { href: "/user/payroll", label: "Payroll" },
             ];
