@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 import { verifyJwtToken } from "@/lib/verifyJwtToken";
-import Attendance from "@/models/Attendance";
+import Attendance from "@/model/Attendance";
 import { connectDB } from "@/lib/db";
 
 export async function POST()
