@@ -8,6 +8,7 @@ export async function middleware(req)
 
   if (!token)
   {
+    // Redirect unauthenticated users from protected paths
     if (url.pathname.startsWith("/admin") || url.pathname.startsWith("/user"))
     {
       return NextResponse.redirect(new URL("/", req.url));
@@ -19,20 +20,37 @@ export async function middleware(req)
   {
     const secret = new TextEncoder().encode(process.env.JWT_SECRET);
     const { payload } = await jwtVerify(token, secret);
-    console.log("token: " + token);
-    // 🔐 Role-based access control
-    if (url.pathname.startsWith("/admin") && payload.role !== "admin")
+    const role = payload.role;
+
+    // 🔐 Role-based routing
+    if (url.pathname.startsWith("/admin"))
     {
-      return NextResponse.redirect(new URL("/unauthorized", req.url));
+      if (role !== "admin")
+      {
+        return NextResponse.redirect(new URL("/unauthorized", req.url));
+      }
     }
 
-    if (url.pathname.startsWith("/user") && !["user", "admin"].includes(payload.role))
+    else if (url.pathname.startsWith("/user/employee"))
     {
-      return NextResponse.redirect(new URL("/unauthorized", req.url));
+      if (role !== "user")
+      {
+        // Admins not allowed in /user/employee
+        return NextResponse.redirect(new URL("/unauthorized", req.url));
+      }
+    }
+
+    else if (url.pathname.startsWith("/user"))
+    {
+      if (!["admin", "uuser"].includes(role))
+      {
+        return NextResponse.redirect(new URL("/unauthorized", req.url));
+      }
     }
 
     return NextResponse.next();
-  } catch (err)
+  }
+  catch (err)
   {
     console.error("JWT Verify Error:", err);
     return NextResponse.redirect(new URL("/", req.url));

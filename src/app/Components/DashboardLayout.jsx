@@ -19,7 +19,7 @@ export default function DashboardLayout({ role, children })
         role === "admin"
             ? [
                 { href: "/admin/admindashboard", label: "Dashboard" },
-                { href: "/admin/manageemployee", label: "Manage Employees" },
+                { href: "/admin/manageemployees", label: "Manage Employees" },
                 { href: "/admin/attendance", label: "Attendance" },
                 { href: "/admin/payroll", label: "Payroll" },
             ]
