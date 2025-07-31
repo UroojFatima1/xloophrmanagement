@@ -41,6 +41,11 @@ export async function POST(req)
         maxAge: 60 * 60, // 1 hour
         path: "/",
     });
+      response.cookies.set("userId", user._id.toString(), {
+        httpOnly: false,
+        maxAge: 60 * 60,
+        path: "/",
+    });
 
     return response;
 
