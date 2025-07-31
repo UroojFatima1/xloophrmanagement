@@ -2,30 +2,35 @@
 import DashboardLayout from "@/app/Components/DashboardLayout";
 import { useState, useEffect } from "react";
 
-export default function MarkAttendancePage() {
+export default function MarkAttendancePage()
+{
   const [status, setStatus] = useState("present");
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [userId, setUserId] = useState(null);
-    
-useEffect(() => {
-  const getCookie = (name) => {
-    const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
-    if (match) return match[2];
-    return null;
-  };
 
-  const storedId = getCookie("userId");
-  if (storedId) {
-    setUserId(storedId);
-  }
-}, []);
+  useEffect(() =>
+  {
+    const getCookie = (name) =>
+    {
+      const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+      if (match) return match[2];
+      return null;
+    };
+
+    const storedId = getCookie("userId");
+    if (storedId)
+    {
+      setUserId(storedId);
+    }
+  }, []);
 
 
 
-  if (!userId) {
+  if (!userId)
+  {
     return (
       <DashboardLayout role="employee">
         <div className="max-w-md mx-auto mt-10 p-6 border rounded shadow">
@@ -38,12 +43,20 @@ useEffect(() => {
 
   const today = new Date().toISOString().split("T")[0]; // Format: YYYY-MM-DD
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e) =>
+  {
     e.preventDefault();
-    setLoading(true);
     setMessage("");
+    if (checkIn && checkOut && checkOut <= checkIn)
+    {
+      setMessage("Check-out time must be greater than check-in time.");
+      return;
+    }
 
-    try {
+    setLoading(true);
+
+    try
+    {
       const res = await fetch("/api/markattendance", {
         method: "POST",
         headers: {
@@ -62,12 +75,15 @@ useEffect(() => {
       if (!res.ok) throw new Error(result.error || "Failed to mark attendance");
 
       setMessage("Attendance marked successfully!");
-    } catch (err) {
+    } catch (err)
+    {
       setMessage(err.message);
-    } finally {
+    } finally
+    {
       setLoading(false);
     }
   };
+
 
   return (
     <DashboardLayout role="employee">
@@ -128,9 +144,8 @@ useEffect(() => {
 
           {message && (
             <p
-              className={`mt-4 text-sm ${
-                message.includes("success") ? "text-green-600" : "text-red-600"
-              }`}
+              className={`mt-4 text-sm ${message.includes("success") ? "text-green-600" : "text-red-600"
+                }`}
             >
               {message}
             </p>

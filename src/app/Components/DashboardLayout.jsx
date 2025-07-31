@@ -20,7 +20,7 @@ export default function DashboardLayout({ role, children })
             ? [
                 { href: "/admin/admindashboard", label: "Dashboard" },
                 { href: "/admin/manageemployees", label: "Manage Employees" },
-                { href: "/admin/attendance", label: "Attendance" },
+                { href: "/user/history", label: "Attendance History" },
                 { href: "/admin/payroll", label: "Payroll" },
             ]
             : [
