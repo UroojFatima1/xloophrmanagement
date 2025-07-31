@@ -8,8 +8,8 @@ email: { type: String, unique: true },
 
 password: String,
 
-role: { type: String, default: "user" },
+role: { type: String, enum: ["admin", "user"], default: "user" },
 
-});
+}, { timestamps: true }); 
 
 export default mongoose.models.User || mongoose.model("User", userSchema);
