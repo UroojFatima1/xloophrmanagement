@@ -20,14 +20,14 @@ export default function DashboardLayout({ role, children })
             ? [
                 { href: "/admin/admindashboard", label: "Dashboard" },
                 { href: "/admin/manageemployees", label: "Manage Employees" },
-                { href: "/user/history", label: "Attendance History" },
-                { href: "/admin/payroll", label: "Payroll" },
+               // { href: "/user/history", label: "Attendance History" },
+               // { href: "/admin/payroll", label: "Payroll" },
             ]
             : [
                 { href: "/user/employee/employeedashboard", label: "Dashboard" },
                 { href: "/user/employee/attendance", label: "Mark Attendance" },
-                { href: "/user/history", label: "Attendance History" },
-                { href: "/user/payroll", label: "Payroll" },
+               // { href: "/user/history", label: "Attendance History" },
+                //{ href: "/user/payroll", label: "Payroll" },
             ];
 
     return (

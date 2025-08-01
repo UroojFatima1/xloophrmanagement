@@ -1,13 +1,13 @@
 import { cookies } from "next/headers";
-import { verifyJwtToken } from "@/lib/verifyJwtToken";
+import  verifyJwtToken  from "@/lib/jwt";
 import Attendance from "@/model/Attendance";
-import { connectDB } from "@/lib/db";
+import { connectDB } from "@/lib/dbconnect";
 
 export async function POST()
 {
     await connectDB();
 
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const token = cookieStore.get("token")?.value;
 
     const user = verifyJwtToken(token);

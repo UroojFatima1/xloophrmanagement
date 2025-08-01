@@ -90,7 +90,7 @@ export default function ManageEmployees()
         }
     };
 
-    const handleAddEmployee = async (e) =>
+    const handleAddSubmit = async (e) =>
     {
         e.preventDefault();
 

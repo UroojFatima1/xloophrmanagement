@@ -3,13 +3,13 @@ import jwt from "jsonwebtoken";
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
-export default function verifyJwtToken()
+export default function verifyJwtToken({params} = {})
 {
 
 
     try
     {
-        if (!token) return null;
+        if (!params.token) return null;
 
         const decoded = jwt.verify(token, JWT_SECRET);
         return decoded;
