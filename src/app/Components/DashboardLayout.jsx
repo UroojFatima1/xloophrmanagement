@@ -19,22 +19,23 @@ export default function DashboardLayout({ role, children })
         role === "admin"
             ? [
                 { href: "/admin/admindashboard", label: "Dashboard" },
-                { href: "/admin/manageemployee", label: "Manage Employees" },
-                { href: "/admin/attendance", label: "Attendance" },
-                { href: "/admin/payroll", label: "Payroll" },
+                { href: "/admin/manageemployees", label: "Manage Employees" },
+                //{ href: "/user/history", label: "Attendance History" },
+                //{ href: "/user/payroll", label: "Payroll" },
             ]
             : [
                 { href: "/user/employee/employeedashboard", label: "Dashboard" },
                 { href: "/user/employee/attendance", label: "Mark Attendance" },
-                { href: "/user/history", label: "Attendance History" },
-                { href: "/user/payroll", label: "Payroll" },
+                //{ href: "/user/history", label: "Attendance History" },
+                //{ href: "/user/payroll", label: "Payroll" },
             ];
+    const capitalizedRole = role?.toUpperCase() || "";
 
     return (
         <div className="flex flex-col md:flex-row min-h-screen">
 
             <div className="md:hidden bg-blue-700 text-white flex items-center justify-between p-4">
-                <h2 className="text-xl font-bold">{role.toUpperCase()} PANEL</h2>
+                <h2 className="text-xl font-bold">{capitalizedRole} PANEL</h2>
                 <button onClick={() => setIsOpen(!isOpen)}>
                     <Menu />
                 </button>
@@ -44,7 +45,7 @@ export default function DashboardLayout({ role, children })
                 className={`bg-blue-700 text-white p-6 space-y-6 w-full md:w-64 ${isOpen ? "block" : "hidden"
                     } md:block`}
             >
-                <h2 className="text-2xl font-bold hidden md:block">{role.toUpperCase()} PANEL</h2>
+                <h2 className="text-2xl font-bold hidden md:block">{capitalizedRole} PANEL</h2>
                 <nav className="space-y-2">
                     {links.map((link) => (
                         <Link

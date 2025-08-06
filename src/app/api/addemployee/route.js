@@ -23,7 +23,7 @@ export async function POST(request)
             email,
             position,
             salary,
-            password,
+            password:hashedPassword,
             role: "user",
         });
         console.log("Created employee:", user);
