@@ -6,6 +6,10 @@ export async function POST(request)
 {
   try
   {
+export async function POST(request)
+{
+  try
+  {
     const body = await request.json();
     const { userId, date, status, checkIn, checkOut } = body;
 
@@ -20,6 +24,8 @@ export async function POST(request)
     const existing = await Attendance.findOne({ userId, date });
     if (existing)
     {
+    if (existing)
+    {
       return NextResponse.json({ error: "Attendance already marked for today" }, { status: 400 });
     }
     console.log("Marking attendance for user:", userId, "on date:", date, checkIn, checkOut);
@@ -32,6 +38,8 @@ export async function POST(request)
     });
 
     return NextResponse.json({ success: true, data: newRecord }, { status: 201 });
+  } catch (error)
+  {
   } catch (error)
   {
     console.error("Attendance Error:", error);
