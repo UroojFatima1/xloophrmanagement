@@ -1,11 +1,7 @@
 import { NextResponse } from "next/server";
-import { connectDB } from "@/lib/dbconnect";
-import Attendance from "@/model/Attendance";
+import { dbConnect } from "@/lib/dbconnect";
+import { Attendance } from "@/model/Attendance";
 
-export async function POST(request)
-{
-  try
-  {
 export async function POST(request)
 {
   try
@@ -13,7 +9,7 @@ export async function POST(request)
     const body = await request.json();
     const { userId, date, status, checkIn, checkOut } = body;
 
-    if (!userId || !date || !status || (status === "present" && !checkOut) || (status === "present" && !checkOut))
+    if (!userId || !date || !status)
     {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
@@ -22,8 +18,6 @@ export async function POST(request)
 
 
     const existing = await Attendance.findOne({ userId, date });
-    if (existing)
-    {
     if (existing)
     {
       return NextResponse.json({ error: "Attendance already marked for today" }, { status: 400 });
@@ -38,8 +32,6 @@ export async function POST(request)
     });
 
     return NextResponse.json({ success: true, data: newRecord }, { status: 201 });
-  } catch (error)
-  {
   } catch (error)
   {
     console.error("Attendance Error:", error);
