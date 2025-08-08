@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: xloophrmanagementprojectdeployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: xloophrmanagement
+  template:
+    metadata:
+      labels:
+        app: xloophrmanagement
+    spec:
+      containers:
+        - name: xloophrmanagement
+          image: uroojfatima/xloophrmanagementproject:latest
+          ports:
+            - containerPort: 3000
