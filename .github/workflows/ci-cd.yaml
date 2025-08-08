@@ -3,7 +3,7 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - main  # or whichever branch you use
+      - main  # or your main deployment branch
 
 jobs:
   build-and-push:
@@ -17,7 +17,11 @@ jobs:
       run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
     - name: Build Docker image
-      run: docker build -t uroojfatima/xloophrmanagementproject:latest .
+      run: |
+        docker build \
+          --build-arg MONGO_URI=${{ secrets.MONGO_URI }} \
+          --build-arg JWT_SECRET=${{ secrets.JWT_SECRET }} \
+          -t uroojfatima/xloophrmanagementproject:latest .
 
     - name: Push Docker image
       run: docker push uroojfatima/xloophrmanagementproject:latest

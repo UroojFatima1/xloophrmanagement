@@ -2,22 +2,26 @@
 FROM node:18-alpine
 
 # Set working directory
-WORKDIR /src
+WORKDIR /app
 
-# Copy package.json and package-lock.json
+# Copy package files and install dependencies
 COPY package*.json ./
-
-# Install dependencies
 RUN npm install
 
-# Copy the rest of the application code
+# Copy the rest of the app
 COPY . .
+
+# Build-time environment variables
+ARG MONGO_URI
+ARG JWT_SECRET
+ENV MONGO_URI=$MONGO_URI
+ENV JWT_SECRET=$JWT_SECRET
 
 # Build the Next.js app
 RUN npm run build
 
-# Expose port 3000
+# Expose port
 EXPOSE 3000
 
-# Start the Next.js app
+# Start the app
 CMD ["npm", "start"]
