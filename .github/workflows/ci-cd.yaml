@@ -3,7 +3,7 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - main  # or your main deployment branch
+      - main
 
 jobs:
   build-and-push:

@@ -11,7 +11,7 @@ RUN npm install
 # Copy the rest of the app
 COPY . .
 
-# Build-time environment variables
+
 ARG MONGO_URI
 ARG JWT_SECRET
 ENV MONGO_URI=$MONGO_URI
