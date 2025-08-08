@@ -70,7 +70,8 @@ export default function AuthPage()
 
   return (
     <div>
-      {/* // <marquee>Payroll logic will be deployed soon</marquee> */}
+      {
+        <marquee>Payroll logic will be deployed soon || Adding update</marquee> }
 
       <div className="min-h-screen bg-gradient-to-br from-sky-100 to-blue-200 flex items-center justify-center px-4">
         <div className="w-full max-w-4xl bg-white shadow-2xl rounded-3xl overflow-hidden grid md:grid-cols-2">
