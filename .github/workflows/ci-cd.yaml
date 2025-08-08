@@ -1,0 +1,23 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main  # or whichever branch you use
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Log in to Docker Hub
+      run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+    - name: Build Docker image
+      run: docker build -t uroojfatima/xloophrmanagementproject:latest .
+
+    - name: Push Docker image
+      run: docker push uroojfatima/xloophrmanagementproject:latest
